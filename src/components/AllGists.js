@@ -5,10 +5,11 @@ import ReactPaginate from "react-paginate";
 import ExtImages from "../ExtImages";
 import FilterGistsButton from "./FilterGistsButton";
 
-const ShowAllGists = () => {
+const AllGists = () => {
 	const [allGists, setAllGists] = useState([]);
 	const [isFiltered, setIsFiltered] = useState(false);
 	const [filteredGists, setFilteredGists] = useState([]);
+	const [searchedFilename, setSearchedFilename] = useState("");
 	const wrapper = new GitHubWrapper();
 
 	const [pageNumber, setPageNumber] = useState(0);
@@ -86,6 +87,8 @@ const ShowAllGists = () => {
 				setIsFiltered={setIsFiltered}
 				allGists={allGists}
 				setFilteredGists={setFilteredGists}
+				searchedFilename={searchedFilename}
+				setSearchedFilename={setSearchedFilename}
 			/>
 			<button
 				onClick={() => {
@@ -95,8 +98,12 @@ const ShowAllGists = () => {
 			>
 				Cancel filters
 			</button>
+			<input
+				onChange={(e) => setSearchedFilename(e.target.value)}
+				value={searchedFilename}
+			></input>
 		</div>
 	);
 };
 
-export default ShowAllGists;
+export default AllGists;

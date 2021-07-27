@@ -1,12 +1,25 @@
 import "./App.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import LandingSite from "./components/LandingSite";
+import AllGists from "./components/AllGists";
 import CreateGists from "./components/CreateGists";
-import ShowAllGists from "./components/ShowAllGists";
 
 function App() {
 	return (
 		<div className="App">
-			<CreateGists />
-			<ShowAllGists />
+			<Router>
+				<Switch>
+					<Route path="/" exact>
+						<LandingSite />
+					</Route>
+					<Route path="/new">
+						<CreateGists />
+					</Route>
+					<Route path="/all">
+						<AllGists />
+					</Route>
+				</Switch>
+			</Router>
 		</div>
 	);
 }
