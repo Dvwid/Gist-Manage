@@ -1,5 +1,7 @@
 import React from "react";
 import GitHubWrapper from "./githubWrapper";
+import { ReactComponent as Delete } from "../icons/clear.svg";
+import "./styles/AllGists/allGists.scss";
 
 const DeleteGist = ({
 	id,
@@ -21,13 +23,12 @@ const DeleteGist = ({
 	};
 
 	return (
-		<button
+		<Delete
+			className="deleteGist_icon"
 			onClick={() => {
 				handleDeleteGist();
 			}}
-		>
-			Delete
-		</button>
+		></Delete>
 	);
 };
 

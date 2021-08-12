@@ -1,0 +1,153 @@
+@import "variables";
+
+.updateGist {
+	display: flex;
+	height: 100vh;
+	width: 100%;
+	flex-direction: column;
+	justify-content: space-between;
+	&_header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		background-color: $updateGist_header_bg;
+		color: $updateGist_header_text;
+		height: 20vh;
+		font-size: 4vw;
+		&_title {
+			font-weight: bold;
+		}
+		& button {
+			background-color: transparent;
+			border: 0;
+			cursor: pointer;
+		}
+		&_leftArrow {
+			transition: 0.5s;
+			fill: $updateGist_header_arrow;
+			margin-left: 1vw;
+			width: 2vw;
+			&:hover {
+				fill: $updateGist_header_arrow_hovered;
+			}
+		}
+	}
+	&_form {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		height: 80vh;
+		&_input {
+			width: 80%;
+			padding: 0 1vw;
+			border: 1px solid $updateGist_form_border;
+			background-color: $updateGist_form_bg;
+			border-radius: 0.5vw;
+			&:nth-of-type(1) {
+				height: 7vh;
+				margin: 5vw 0 1vw 0;
+			}
+			&:nth-of-type(2) {
+				height: 7vh;
+			}
+		}
+		&_textarea {
+			width: 80%;
+			height: 38vh;
+			padding: 1vw 1vw;
+			resize: none;
+			border: 1px solid $updateGist_form_border;
+			background-color: $updateGist_form_bg;
+		}
+		&_buttons {
+			display: flex;
+			align-items: center;
+			align-self: flex-end;
+			margin: 5vh 10vw 0 0;
+			&_button {
+				cursor: pointer;
+				background-color: $updateGist_buttons_button_bg;
+				color: $updateGist_buttons_button_text;
+				font-size: 1vw;
+				border-radius: 1vw;
+				border: 0;
+				height: 5vh;
+				width: 10vw;
+			}
+			&_checkbox {
+				width: 10vw;
+				margin-right: 1vw;
+				font-size: 1.2vw;
+				& input {
+					cursor: pointer;
+					margin-right: 0.5vw;
+				}
+			}
+		}
+	}
+	&_popup {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		height: 100vh;
+		width: 100%;
+		font-size: 4vw;
+		background-color: $updateGist_popup_bg;
+		color: $updateGist_popup_text;
+		& button {
+			margin-top: 1.5vw;
+			width: 25%;
+			height: 10vh;
+			border-radius: 2vw;
+			font-size: 1.5vw;
+			background-color: $updateGist_popup_button_bg;
+			color: $updateGist_popup_button_text;
+			transition: 0.5s;
+			border: 0;
+			box-shadow: 11px 13px 36px -16px #000000;
+			&:hover {
+				background-color: $updateGist_popup_button_bg_hovered;
+				color: $updateGist_popup_button_text_hovered;
+			}
+		}
+		&_success_buttons {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 1.5vw;
+			width: 100%;
+			height: 10vh;
+
+			& button {
+				margin: 2vw 2vw 0 2vw;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 25%;
+				background-color: #99e2b4;
+				color: $updateGist_popup_text;
+				box-shadow: 11px 13px 36px -16px #000000;
+			}
+
+			& a {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin: 2vw 2vw 0 0;
+				background-color: #fff;
+				color: $updateGist_popup_text_2ndbtn;
+				width: 25%;
+				height: 10vh;
+				border-radius: 2vw;
+				text-decoration: none;
+				transition: 0.5s;
+				box-shadow: 11px 13px 36px -16px #000000;
+				&:hover {
+					background-color: $updateGist_popup_button_bg_hovered;
+					color: $updateGist_popup_button_text_hovered;
+				}
+			}
+		}
+	}
+}

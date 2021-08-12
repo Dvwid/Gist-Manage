@@ -1,0 +1,148 @@
+@import "variables";
+
+.deleteGist_icon {
+	cursor: pointer;
+	margin-top: 0.5vw;
+	width: 1vw;
+	height: 1vw;
+}
+.allGists {
+	display: flex;
+	width: 100%;
+	height: 100vh;
+	&_nav {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		width: 25%;
+		color: $allGists_nav_text;
+		background-color: $allGists_nav_bg;
+		border-top-right-radius: 15px;
+		border-bottom-right-radius: 15px;
+
+		&_header {
+			flex-grow: 1;
+			font-size: 4vw;
+			margin-top: 5vh;
+			&_title {
+				font-weight: bold;
+			}
+		}
+		&_leftArrow {
+			display: flex;
+			margin: 3vh 0 0 1vw;
+			width: 2vw;
+			fill: $allgists_nav_leftArrow;
+		}
+		&_filters {
+			flex-grow: 5;
+			display: flex;
+			align-items: flex-start;
+			flex-direction: column;
+			margin: 2vh 3vw;
+			&_title {
+				font-size: 1.5vw;
+			}
+			&_byFilename {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				margin-top: 3vh;
+				font-size: 1vw;
+				& input {
+					margin-top: 1vh;
+					width: 100%;
+					height: 5vh;
+					border-radius: 5px;
+					border: 0;
+					padding: 0 1vw;
+					outline: none;
+				}
+			}
+			&_sort {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				margin-top: 1vw;
+				width: 100%;
+				height: 5vh;
+
+				&_title {
+					font-size: 1.5vw;
+				}
+				&_selectList {
+					margin-top: 1.5vw;
+					width: 100%;
+					position: relative;
+					& select {
+						background-color: red;
+					}
+				}
+			}
+		}
+		&_confirm {
+			margin-bottom: 5vh;
+			& button {
+				width: 75%;
+				height: 7vh;
+				border: 0;
+				border-radius: 15px;
+				background-color: $allgists_nav_button_bg;
+				color: $allgists_nav_button_text;
+				box-shadow: 11px 13px 36px -16px #000000;
+				transition: 0.5s;
+				margin-bottom: 0.5vw;
+				&:hover {
+					background-color: $allgists_nav_button_bg_hovered;
+					color: $allgists_nav_button_text_hovered;
+				}
+				&:last-of-type {
+					opacity: 0.5;
+					&:hover {
+						opacity: 1;
+					}
+				}
+			}
+		}
+	}
+	&_list {
+		height: 100vh;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
+		&_elements {
+			display: flex;
+			align-items: flex-start;
+			flex-wrap: wrap;
+			&_gist {
+				display: flex;
+				align-items: center;
+				width: 5vw;
+				flex-direction: column;
+				margin: 2vw 3vw;
+				&_image {
+					width: 4vw;
+					height: 4vw;
+				}
+			}
+		}
+	}
+}
+
+.paginationButtons {
+	display: flex;
+	height: 20vh;
+	align-items: flex-end;
+	margin: 0 5vw 2vw 0;
+	justify-content: flex-end;
+	list-style: none;
+	& {
+		li {
+			margin-right: 1vw;
+			cursor: pointer;
+		}
+	}
+}

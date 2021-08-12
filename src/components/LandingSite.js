@@ -19,7 +19,7 @@ const LandingSite = () => {
 						Create new file
 					</button>
 				</Link>
-				<Link to="all">
+				<Link to="/all">
 					<button className="landingSite_navigate_button">
 						<Menu className="landingSite_navigate_button_icon" />
 						Show existing files

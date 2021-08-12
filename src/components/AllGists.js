@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import GitHubWrapper from "./githubWrapper";
-import DeleteGist from "./DeleteGist";
 import ReactPaginate from "react-paginate";
-import ExtImages from "../ExtImages";
-import FilterGistsButton from "./FilterGistsButton";
+import AllGistsNav from "./AllGistsNav";
+import AllGistsList from "./AllGistsList";
+import UpdateGist from "./UpdateGist";
+import "./styles/AllGists/allGists.scss";
 
 const AllGists = () => {
 	const [allGists, setAllGists] = useState([]);
@@ -13,22 +14,28 @@ const AllGists = () => {
 	const wrapper = new GitHubWrapper();
 
 	const [pageNumber, setPageNumber] = useState(0);
-	const gistsPerPage = 5;
+	const gistsPerPage = 28;
 	const pagesVisited = pageNumber * gistsPerPage;
-	const pageCount = Math.ceil(allGists.length / gistsPerPage);
+	const pageCount = Math.ceil(filteredGists.length / gistsPerPage);
+
+	const [fileIsEditing, setFileIsEditing] = useState(false);
+	const [editingFile, setEditingFile] = useState("");
+	const [editingContent, setEditingContent] = useState("");
+	const [editingFilename, setEditingFilename] = useState("");
 
 	const changePage = ({ selected }) => {
 		setPageNumber(selected);
 	};
 
-	const getAllGistsId = async () => {
+	const getAllGistsId = useCallback(async () => {
 		const allIds = [];
 		await wrapper.getRequest("/gists").then((res) => {
-			res.data.forEach(({ id, files, owner }) => {
+			res.data.forEach(({ id, files, created_at, updated_at }) => {
 				const obj = {
 					id,
 					files,
-					owner,
+					created_at,
+					updated_at,
 				};
 				allIds.push(obj);
 			});
@@ -36,72 +43,58 @@ const AllGists = () => {
 		setAllGists(allIds);
 		if (filteredGists.length === 0) {
 			setFilteredGists(allIds);
+			console.log(isFiltered);
 		}
-	};
+		//eslint-disable-next-line
+	}, [filteredGists.length, isFiltered]);
 
 	useEffect(() => {
 		getAllGistsId();
-	}, []);
+	}, [getAllGistsId]);
 
-	const displayGists = filteredGists
-		.slice(pagesVisited, pagesVisited + gistsPerPage)
-		.map((gist, index) => {
-			const gistId = gist.id;
-			const gistFiles = Object.keys(filteredGists[index].files);
-			var re = /(?:\.([^.]+))?$/;
-			const extension = re.exec(gistFiles);
-			let imgSrc = ExtImages[extension[1]];
-			if (!imgSrc) imgSrc = ExtImages.basic;
-
-			return (
-				<div key={gistId}>
-					<img src={imgSrc} width={20} height={20} alt="Icon"></img>
-					<div>{gistFiles}</div>
-					<div>{gistId}</div>
-					<DeleteGist
-						id={gistId}
-						allGists={allGists}
-						setAllGists={setAllGists}
-						filteredGists={filteredGists}
-						setFilteredGists={setFilteredGists}
-					/>
-					<button>Edit</button>
-				</div>
-			);
-		});
-
-	return (
-		<div>
-			{displayGists}
-			<ReactPaginate
-				previousLabel={"Previous"}
-				nextLabel={"Next"}
-				pageCount={pageCount}
-				onPageChange={changePage}
-				containerClassName={"paginationButtons"}
-				previousLinkClassName={"previousButton"}
-				nextLinkClassName={"nextButton"}
-				disabledClassName={"paginationDisabled"}
-			/>
-			<FilterGistsButton
+	return fileIsEditing ? (
+		<UpdateGist
+			setFileIsEditing={setFileIsEditing}
+			editingFile={editingFile}
+			editingContent={editingContent}
+			editingFilename={editingFilename}
+			reload={getAllGistsId}
+			setAllGists={setAllGists}
+			setFilteredGists={setFilteredGists}
+		/>
+	) : (
+		<div className="allGists">
+			<AllGistsNav
 				setIsFiltered={setIsFiltered}
 				allGists={allGists}
 				setFilteredGists={setFilteredGists}
 				searchedFilename={searchedFilename}
 				setSearchedFilename={setSearchedFilename}
 			/>
-			<button
-				onClick={() => {
-					setIsFiltered(false);
-					setFilteredGists(allGists);
-				}}
-			>
-				Cancel filters
-			</button>
-			<input
-				onChange={(e) => setSearchedFilename(e.target.value)}
-				value={searchedFilename}
-			></input>
+			<div className="allGists_list">
+				<AllGistsList
+					filteredGists={filteredGists}
+					setFilteredGists={setFilteredGists}
+					pagesVisited={pagesVisited}
+					gistsPerPage={gistsPerPage}
+					allGists={allGists}
+					setAllGists={setAllGists}
+					setFileIsEditing={setFileIsEditing}
+					setEditingFile={setEditingFile}
+					setEditingContent={setEditingContent}
+					setEditingFilename={setEditingFilename}
+				/>
+				<ReactPaginate
+					previousLabel={"<"}
+					nextLabel={">"}
+					pageCount={pageCount}
+					onPageChange={changePage}
+					containerClassName={"paginationButtons"}
+					previousLinkClassName={"previousButton"}
+					nextLinkClassName={"nextButton"}
+					disabledClassName={"paginationDisabled"}
+				/>
+			</div>
 		</div>
 	);
 };
